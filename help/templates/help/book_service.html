@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GoHelp - Book a Service</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <div class="booking-container">
+        <h2>Book a Service</h2>
+        <form id="bookServiceForm">
+            <input type="number" id="sp_id" placeholder="Service Provider ID" required>
+            <input type="datetime-local" id="date" required>
+            <input type="number" id="amount" placeholder="Amount" required>
+            <button type="submit">Book Service</button>
+        </form>
+        <p id="message" class="message"></p>
+    </div>
+
+    <script src="{% static 'js/scripts.js' %}"></script>
+</body>
+</html>

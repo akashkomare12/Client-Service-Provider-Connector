@@ -1,0 +1,29 @@
+{% load static %}
+{% extends 'help/base.html' %}
+{% block content %}
+<h2>Your Service Records</h2>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Service</th>
+            <th>Provider</th>
+            <th>Date</th>
+            <th>Amount</th>
+            <th>Status</th>
+            <th>Ratings</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for record in service_records %}
+        <tr>
+            <td>{{ record.service }}</td>
+            <td>{{ record.service_provider }}</td>
+            <td>{{ record.date }}</td>
+            <td>{{ record.amount }}</td>
+            <td>{{ record.status }}</td>
+            <td>{{ record.ratings }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

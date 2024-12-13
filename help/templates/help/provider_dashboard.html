@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Welcome, {{ provider.name }}</h2>
+<p>Here are your options:</p>
+<ul>
+    <li><a href="/services_to_do/">Track Assigned Services</a></li>
+    <li><a href="/update_provider/">Update Your Profile</a></li>
+    <li><a href="/logout/">Logout</a></li>
+</ul>
+{% endblock %}

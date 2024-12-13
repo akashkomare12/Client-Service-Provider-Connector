@@ -1,0 +1,30 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GoHelp</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center">Welcome to GoHelp</h1>
+        <p class="text-center">Connecting clients with service providers seamlessly.</p>
+        <div class="d-flex justify-content-center gap-3">
+            <!-- Link to Client Registration -->
+            <a href="{% url 'register_page' %}" class="btn btn-primary">Client Registration</a>
+
+            <!-- Link to Client Login -->
+            <a href="{% url 'login_page' %}" class="btn btn-success">Client Login</a>
+
+            <!-- Link to Service Provider Registration -->
+            <a href="{% url 'service_register_page' %}" class="btn btn-info">Service Provider Registration</a>
+
+            <!-- Link to Service Provider Login -->
+            <a href="{% url 'service_login_page' %}" class="btn btn-warning">Service Provider Login</a>
+        </div>
+    </div>
+</body>
+</html>

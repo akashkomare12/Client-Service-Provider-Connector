@@ -1,0 +1,29 @@
+{% load static %}
+{% extends 'help/base.html' %}
+{% block content %}
+<h2>Service Providers</h2>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Skills</th>
+            <th>City</th>
+            <th>Mobile</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for sp in service_providers %}
+        <tr>
+            <td>{{ sp.name }}</td>
+            <td>{{ sp.skills }}</td>
+            <td>{{ sp.city }}</td>
+            <td>{{ sp.mobile }}</td>
+            <td>
+                <a href="{% url 'book_service' sp.id %}" class="btn btn-success">Book</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

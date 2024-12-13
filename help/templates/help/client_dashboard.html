@@ -1,0 +1,91 @@
+{% extends 'help/base.html' %} {% load static %} {% block content %} {% load custom_tags %}
+<div class="container mt-5">
+  <h2 class="text-center">Client Dashboard</h2>
+
+  <!-- Welcome Message -->
+  <div class="alert alert-info text-center mt-3">
+    Welcome, {{ client.name }}!
+  </div>
+  <!-- Logout Section -->
+  <div class="text-right mt-4">
+    <button class="btn btn-danger">
+      <a
+        href="javascript:void(0);"
+        id="logout-link"
+        onclick="logoutProvider()"
+        style="text-decoration: none; color: white"
+        >Logout</a
+      >
+    </button>
+  </div>
+
+  <!-- Profile Section -->
+  <br /><br />
+  <div class="row">
+    <div class="col-sm-2 mb-3 mb-sm-0">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Update Profile</h5>
+          <br />
+          <a href="/help/update_client_page" class="btn btn-primary">Update</a>
+        </div>
+      </div>
+    </div>
+    <!-- Services Section -->
+    <div class="col-sm-2 mb-3 mb-sm-0">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Your Services</h5>
+          <br />
+          <a href="/help/client_service_page" class="btn btn-primary">View</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+    
+
+    <!-- Service Providers Section -->
+    <div class="card mt-4">
+      <div class="card-header">
+        <h4>Available Service Providers</h4>
+      </div>
+      <div class="card-body">
+        {% if service_providers %}
+        <div class="card-body">
+          {% for provider in service_providers %}
+          <div class="card mb-3">
+            <div class="card-body">
+              <h5 class="card-title">{{ provider.name }}</h5>
+              <p><strong>Skill:</strong> {{ provider.skills }}</p>
+              <p><strong>Location:</strong> {{ provider.city }}</p>
+              <p>
+                <strong>Average Rating:</strong>
+                {% if provider.average_rating %}
+                  <span>{{ provider.average_rating|render_stars|safe }}</span>
+                {% else %}
+                  No Ratings
+                {% endif %}
+              </p>
+              <button
+                class="btn btn-success"
+                onclick="bookService('{{ provider.sp_id }}', '{{ provider.skills }}', '{{ client.client_id }}')"
+              >
+                Book Service
+              </button>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+        {% else %}
+        <p class="text-muted">No service providers available at the moment.</p>
+        {% endif %}
+      </div>
+    </div>
+
+    
+  </div>
+
+  <script src="{% static 'js/scripts.js' %}"></script>
+  {% endblock %}
+</div>

@@ -1,0 +1,37 @@
+{% extends 'help/base.html' %} {% load static%} {% block content %} {% load custom_tags %}
+<div class="card mt-4">
+  <div class="card-header">
+    <h4>Your Services</h4>
+  </div>
+  <div class="card-body">
+    {% if services %}
+    <ul class="list-group">
+      {% for service in services %}
+      <li class="list-group-item">
+        <strong>Service:</strong> {{ service.service }}<br />
+        <strong>Date:</strong> {{ service.date }}<br />
+        <strong>Amount:</strong> ₹{{ service.amount }}<br />
+        <strong>Status:</strong> {{ service.status }}<br />
+        <strong>Ratings:</strong>
+        {% if service.ratings %}
+        <span>{{ service.ratings|render_stars|safe }}</span>
+        {% else %}
+        <span class="text-muted">No Ratings</span>
+        {% endif %}
+        <button class="btn btn-secondary mt-2">
+          <a
+            style="text-decoration: none; color: white"
+            href="\help\edit_service_record\{{service.id}}"
+            >Edit</a
+          >
+        </button>
+      </li>
+      {% endfor %}
+    </ul>
+    {% else %}
+    <p class="text-muted">You have not booked any services yet.</p>
+    {% endif %}
+  </div>
+</div>
+<script src="{% static 'js/scripts.js' %}"></script>
+{% endblock %}

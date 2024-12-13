@@ -1,0 +1,75 @@
+{% extends 'help/base.html' %} {% load static%} {% block content %}
+<div class="card mt-4">
+    <div class="card-header">
+      <h4>Update Profile</h4>
+    </div>
+    <div class="card-body">
+      <form id="update-profile-form">
+        {% csrf_token %}
+        <div class="mb-3">
+          <label for="name" class="form-label">Name</label>
+          <input
+            type="text"
+            class="form-control"
+            id="name"
+            name="name"
+            value="{{ client.name }}"
+            required
+          />
+        </div>
+        <div class="mb-3">
+          <label for="email" class="form-label">Email</label>
+          <input
+            type="email"
+            class="form-control"
+            id="email"
+            name="email"
+            value="{{ client.email }}"
+            required
+          />
+        </div>
+        <div class="mb-3">
+          <label for="mobile" class="form-label">Mobile</label>
+          <input
+            type="text"
+            class="form-control"
+            id="mobile"
+            name="mobile"
+            value="{{ client.mobile }}"
+            required
+          />
+        </div>
+        <div class="mb-3">
+          <label for="city" class="form-label">City</label>
+          <input
+            type="text"
+            class="form-control"
+            id="city"
+            name="city"
+            value="{{ client.city }}"
+            required
+          />
+        </div>
+        <div class="mb-3">
+          <label for="pincode" class="form-label">Pincode</label>
+          <input
+            type="text"
+            class="form-control"
+            id="pincode"
+            name="pincode"
+            value="{{ client.pincode }}"
+            required
+          />
+        </div>
+        <button
+          type="submit"
+          class="btn btn-primary"
+          id="update-profile-button"
+        >
+          Update Profile
+        </button>
+      </form>
+    </div>
+  </div>
+<script src="{% static 'js/scripts.js' %}"></script>
+{% endblock %}

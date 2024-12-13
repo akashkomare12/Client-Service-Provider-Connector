@@ -1,0 +1,130 @@
+{% extends 'help/base.html' %} {% load static%} {% block content %}
+    <div class="card mt-4">
+        <div class="card-header">
+          <h4>Update Profile</h4>
+        </div>
+        <div class="card-body">
+          <form id="service-update-profile-form">
+            {% csrf_token %}
+            <div class="mb-3">
+              <label for="name" class="form-label">Name</label>
+              <input
+                type="text"
+                class="form-control"
+                id="name"
+                name="name"
+                value="{{ service.name }}"
+                required
+              />
+            </div>
+            <div class="mb-3">
+              <label for="email" class="form-label">Email</label>
+              <input
+                type="email"
+                class="form-control"
+                id="email"
+                name="email"
+                value="{{ service.email }}"
+                required
+              />
+            </div>
+            <div class="mb-3">
+              <label for="mobile" class="form-label">Mobile</label>
+              <input
+                type="text"
+                class="form-control"
+                id="mobile"
+                name="mobile"
+                value="{{ service.mobile }}"
+                required
+              />
+            </div>
+            <div class="mb-3">
+              <label for="city" class="form-label">City</label>
+              <input
+                type="text"
+                class="form-control"
+                id="city"
+                name="city"
+                value="{{ service.city }}"
+                required
+              />
+            </div>
+            <div class="mb-3">
+              <label for="pincode" class="form-label">Pincode</label>
+              <input
+                type="text"
+                class="form-control"
+                id="pincode"
+                name="pincode"
+                value="{{ service.pincode }}"
+                required
+              />
+            </div>
+            <button
+              type="submit"
+              class="btn btn-primary"
+              id="service-update-profile-button"
+            >
+              Update Profile
+            </button>
+          </form>
+        </div>
+      </div>
+      <script> const serviceupdateProfileForm = document.getElementById(
+        "service-update-profile-form"
+      );
+      if (serviceupdateProfileForm) {
+        console.log("formData");
+        serviceupdateProfileForm.addEventListener("submit", async function (event) {
+          event.preventDefault(); // Prevent default form submission behavior
+          console.log("formData");
+          // Collect form data
+          const formData = {
+            name: document.getElementById("name").value,
+            email: document.getElementById("email").value,
+            mobile: document.getElementById("mobile").value,
+            city: document.getElementById("city").value,
+            pincode: document.getElementById("pincode").value,
+          };
+          console.log(formData);
+    
+          const csrfToken = getCSRFToken(); // Ensure CSRF token retrieval
+          console.log(csrfToken);
+          try {
+            const response = await fetch("/help/service-update-profile/", {
+              method: "PUT",
+              headers: {
+                "Content-Type": "application/json",
+                "X-CSRFToken": csrfToken,
+              },
+              body: JSON.stringify(formData),
+            });
+    
+            if (response.ok) {
+              // Redirect or notify user on successful profile update
+              window.location.href = "/help/service_dashboard/"; // Redirect to client dashboard
+            } else {
+              const errorData = await response.json();
+              document.getElementById("error").textContent =
+                errorData.error || "Failed to update profile.";
+            }
+          } catch (error) {
+            document.getElementById("error").textContent =
+              "An error occurred. Please try again.";
+          }
+        });
+      }
+    
+      function getCSRFToken() {
+        const name = "csrftoken";
+        const cookies = document.cookie.split("; ");
+        for (let i = 0; i < cookies.length; i++) {
+          const cookie = cookies[i].split("=");
+          if (cookie[0] === name) {
+            return cookie[1];
+          }
+        }
+        return null;
+      }</script>
+      {% endblock %}

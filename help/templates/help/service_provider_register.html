@@ -1,0 +1,105 @@
+{% extends 'help/base.html' %}
+{% load static %}
+{% block content %}
+<div class="container mt-5">
+    <h2 class="text-center">Service Provider Registration</h2>
+    <form id="serviceregisterForm">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="service_name" class="form-label">Name</label>
+            <input type="text" class="form-control" id="service_name" name="service_name" required>
+        </div>
+        <div class="mb-3">
+            <label for="service_username" class="form-label">Username</label>
+            <input type="text" class="form-control" id="service_username" name="service_username" required>
+        </div>
+        <div class="mb-3">
+            <label for="service_email" class="form-label">Email</label>
+            <input type="email" class="form-control" id="service_email" name="service_email" required>
+        </div>
+        <div class="mb-3">
+            <label for="service_password" class="form-label">Password</label>
+            <input type="password" class="form-control" id="service_password" name="service_password" required>
+        </div>
+        <div class="mb-3">
+            <label for="service_city" class="form-label">City</label>
+            <input type="text" class="form-control" id="service_city" name="service_city" required>
+        </div>
+        <div class="mb-3">
+            <label for="service_pincode" class="form-label">Pincode</label>
+            <input type="text" class="form-control" id="service_pincode" name="service_pincode" required>
+        </div>
+        <div class="mb-3"> 
+            <label for="service_mobile" class="form-label">Mobile</label>
+            <input type="text" class="form-control" id="service_mobile" name="service_mobile" required>
+        </div>
+        <div class="mb-3">
+            <label for="skills" class="form-label">Skills</label>
+            <select class="form-select" id="skills" name="skills" required>
+                <option value="plumber">Plumber</option>
+                <option value="cleaner">Cleaner</option>
+                <option value="electrician">Electrician</option>
+                <option value="cook">Cook</option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary" id="registerButton">Register</button>
+    </form>
+    <p id="error" class="text-danger mt-2"></p>
+</div>
+
+<script  src="{% static 'js/scripts.js' %}">
+    const serviceregisterForm = document.getElementById("serviceregisterForm");
+    if (serviceregisterForm) {
+      serviceregisterForm.addEventListener("submit", async function (event) {
+        event.preventDefault(); // Prevent the form's default GET request
+  
+        // Collect form data
+        const formData = {
+          name: document.getElementById("service_name").value,
+          username: document.getElementById("service_username").value,
+          email: document.getElementById("service_email").value,
+          city: document.getElementById("service_city").value,
+          pincode: document.getElementById("service_pincode").value,
+          mobile: document.getElementById("service_mobile").value,
+          password: document.getElementById("service_password").value,
+          skills: document.getElementById("skills").value,
+        };
+  
+        const csrfToken = getCSRFToken();
+  
+        try {
+          const response = await fetch("/help/register_service_provider/", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              "X-CSRFToken": csrfToken, // Include CSRF token
+            },
+            body: JSON.stringify(formData),
+          });
+  
+          const data = await response.json();
+  
+          if (response.ok) {
+            window.location.href = "/help/service-register-page/"; // Redirect on success
+          } else {
+            document.getElementById("error").textContent = data.error;
+          }
+        } catch (error) {
+          document.getElementById("error").textContent =
+            "An error occurred. Please try again.";
+        }
+      });
+    }
+    function getCSRFToken() {
+      const name = "csrftoken";
+      const cookies = document.cookie.split("; ");
+      for (let i = 0; i < cookies.length; i++) {
+        const cookie = cookies[i].split("=");
+        if (cookie[0] === name) {
+          return cookie[1];
+        }
+      }
+      return null;
+    }
+</script>
+{% endblock %}
