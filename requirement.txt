@@ -1,0 +1,11 @@
+Django==4.2.13                   # Adjust version based on your project requirements
+djangorestframework==3.15.2    # For building REST APIs
+django-cors-headers==4.6.0    # For handling CORS
+
+# Optional but useful
+Pillow==10.0.1                 # For image processing (if handling image uploads)
+drf-yasg==1.23.0               # For API documentation using Swagger
+django-environ==0.10.0         # For managing environment variables
+dj-database-url==1.2.0         # For database URL configuration
+django-storages==1.13.3        # For handling cloud storage (e.g., S3)
+        # For generating test data
